@@ -1,0 +1,26 @@
+defaultEntryPoints = ["http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+
+ [entryPoints.api]
+   address=":8888"
+   [entryPoints.api.auth]
+     [entryPoints.api.auth.basic]
+       users = [
+         "x:$apr1$H6uskkkW$IgXLP6ewTrSuBkTrqE8wj/",
+         "x2:$apr1$d9hr9HBB$4HxwgUir3HP4EsggP/QNo0",
+       ]
+
+  [entryPoints.ping]
+    address=":7777"
+
+[api]
+entrypoint="api"
+dashboard=true
+  [api.statistics]
+    recentErrors = 10
+
+[ping]
+entrypoint="ping"

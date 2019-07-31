@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+
+  reverse-proxy:
+    image: traefik
+    command: --docker --docker.watch
+    ports:
+      - "80:80"
+      - "8888:8888"
+      - "7777:7777"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.toml:/traefik.toml
+
+  whoami:
+    image: containous/whoami
+    labels:
+      traefik.frontend.rule: "Host:foo.cvl.com.tw,bar.cvl.com.tw;Path:/xxx"
